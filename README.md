@@ -7,7 +7,7 @@
 **Plataforma:** PNETLab  
 **Fecha:** Octubre 2026
 
-> **🎥 Video demostrativo:** [PEGAR AQUÍ EL ENLACE AL VIDEO](video/enlace-video.txt)
+> **🎥 Video demostrativo:** https://youtu.be/6c059OMuvDA
 
 ---
 
