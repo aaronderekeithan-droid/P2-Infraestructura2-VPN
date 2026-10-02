@@ -527,9 +527,6 @@ El túnel `VPN-USUARIOS` debe aparecer **UP**.
 ---
 
 ## 12. Prueba de seguridad con VPN caída
-### Evidencia 06 — VPN caída y tráfico bloqueado
-![VPN caída](imagenes/06-vpn-down.png)
-
 
 1. En FortiGate: `VPN → IPsec Tunnels → VPN-USUARIOS → Bring Down`.
 2. Desde el PC:
@@ -549,60 +546,11 @@ ping -c 4 192.168.8.130
 curl -vk https://192.168.8.130
 ```
 
-Las pruebas deben funcionar nuevamente.
-
-
-
-## Evidencias de captura necesarias
-
-Para mantener la documentación profesional sin llenar el repositorio de imágenes, utiliza solo estas **8 capturas**:
-
-1. `01-topologia.png` — topología completa en PNETLab.
-2. `02-isp-interfaces-ping.png` — ISP: interfaces y ping hacia `20.25.8.6`.
-3. `03-cisco-verificacion.png` — Cisco: interfaces, DHCP, ruta y estado de VPN.
-4. `04-fortigate-interfaces-routing.png` — FortiGate: `port2`, `port3` y routing.
-5. `05-vpn-up.png` — FortiGate mostrando `VPN-USUARIOS` en UP.
-6. `06-web-server-https.png` — servidor con `192.168.8.130/28` y HTTPS/443.
-7. `07-pc-dhcp-route.png` — usuario con IP DHCP y gateway `192.168.8.1`.
-8. `08-vpn-down.png` — túnel DOWN y ping/HTTPS fallando.
-
-En el README las imágenes se insertan con rutas relativas, por ejemplo:
-
-```markdown
-![Topología final](imagenes/01-topologia.png)
-```
 
 ---
 
-## 13. Organización del repositorio
+# 13. Running-Configs
 
-```text
-P2-Infraestructura2-VPN/
-├── README.md
-├── imagenes/
-│   ├── 01-topologia.png
-│   ├── 02-cisco-verificacion.png
-│   ├── 03-fortigate-configuracion.png
-│   ├── 04-vpn-up.png
-│   ├── 05-pruebas-web.png
-│   └── 06-vpn-down.png
-├── diagramas/
-│   └── 01-diagrama-topologia.png
-├── scripts/
-│   └── comandos-laboratorio.txt
-├── running-configs/
-│   ├── ISP.txt
-│   ├── CISCO-USUARIOS.txt
-│   └── FW-SERVIDOR.conf
-└── video/
-    └── enlace-video.txt
-```
-
----
-
-# 14. Running-Configs
-
-> **Nota de seguridad:** las claves precompartidas, contraseñas y hashes se muestran como `<REDACTED>` en la versión destinada a GitHub. El backup completo sanitizado del FortiGate está en `running-configs/FW-SERVIDOR.conf`.
 
 ## ISP
 
