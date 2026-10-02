@@ -1,0 +1,126 @@
+============================================================
+RUNNING-CONFIG - CISCO-USUARIOS
+Infraestructura 2 - Aaron Hernandez - 2025-0800
+============================================================
+
+CISCO-USUARIOS#show running-config
+
+Building configuration...
+
+Current configuration : 2397 bytes
+!
+! Last configuration change at 20:42:50 UTC Fri Oct 2 2026
+!
+version 15.4
+service timestamps debug datetime msec
+service timestamps log datetime msec
+no service password-encryption
+!
+hostname CISCO-USUARIOS
+!
+boot-start-marker
+boot-end-marker
+!
+no aaa new-model
+mmi polling-interval 60
+no mmi auto-configure
+no mmi pvc
+mmi snmp-timeout 180
+!
+ip dhcp excluded-address 192.168.8.1 192.168.8.9
+ip dhcp excluded-address 192.168.8.101 192.168.8.126
+!
+ip dhcp pool VLAN10-USUARIOS
+ network 192.168.8.0 255.255.255.128
+ default-router 192.168.8.1
+!
+no ip domain lookup
+ip cef
+no ipv6 cef
+!
+multilink bundle-name authenticated
+!
+redundancy
+!
+crypto ikev2 proposal PROP-FGT
+ encryption des
+ integrity sha256
+ group 14
+!
+crypto ikev2 policy POL-FGT
+ proposal PROP-FGT
+!
+crypto ikev2 keyring KEY-FGT
+ peer FORTIGATE
+  address 20.25.8.6
+  pre-shared-key <REDACTED>
+ !
+!
+crypto ikev2 profile PROF-FGT
+ match identity remote address 20.25.8.6 255.255.255.255
+ authentication remote pre-share
+ authentication local pre-share
+ keyring local KEY-FGT
+!
+crypto ipsec transform-set TS-FGT esp-des esp-sha256-hmac
+ mode tunnel
+!
+crypto ipsec profile IPSEC-PROF-FGT
+ set transform-set TS-FGT
+ set pfs group14
+ set ikev2-profile PROF-FGT
+!
+interface Tunnel10
+ ip unnumbered Ethernet0/1.10
+ tunnel source Ethernet0/0
+ tunnel mode ipsec ipv4
+ tunnel destination 20.25.8.6
+ tunnel protection ipsec profile IPSEC-PROF-FGT
+!
+interface Ethernet0/0
+ description WAN-ISP
+ ip address 20.25.8.2 255.255.255.252
+ ip nat outside
+ ip virtual-reassembly in
+!
+interface Ethernet0/1
+ no ip address
+!
+interface Ethernet0/1.10
+ description VLAN10-USUARIOS
+ encapsulation dot1Q 10 native
+ ip address 192.168.8.1 255.255.255.128
+ ip nat inside
+ ip virtual-reassembly in
+!
+interface Ethernet0/2
+ no ip address
+ shutdown
+!
+interface Ethernet0/3
+ no ip address
+ shutdown
+!
+ip forward-protocol nd
+!
+no ip http server
+no ip http secure-server
+!
+ip nat inside source list NAT-INTERNET interface Ethernet0/0 overload
+ip route 0.0.0.0 0.0.0.0 20.25.8.1
+ip route 192.168.8.128 255.255.255.240 Tunnel10
+!
+ip access-list extended NAT-INTERNET
+ deny   ip 192.168.8.0 0.0.0.127 192.168.8.128 0.0.0.15
+ permit ip 192.168.8.0 0.0.0.127 any
+!
+control-plane
+!
+line con 0
+ logging synchronous
+line aux 0
+line vty 0 4
+ login
+ transport input none
+!
+end
