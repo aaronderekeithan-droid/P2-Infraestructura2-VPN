@@ -62,7 +62,74 @@ El laboratorio demuestra:
 | FortiGate | port1 | Cloud0 | — |
 
 ### Diagrama
-![Diagrama de topología](diagramas/01-diagrama-topologia.png)
+
+INFRAESTRUCTURA 2
+                    VPN SITE-TO-SITE IPsec
+                              │
+                              │
+                    ┌─────────▼─────────┐
+                    │    PC-USUARIO     │
+                    │ 192.168.8.10/25  │
+                    └─────────┬─────────┘
+                              │
+                              │
+                    ┌─────────▼─────────┐
+                    │  CISCO-USUARIOS   │
+                    │    Gateway:       │
+                    │   192.168.8.1     │
+                    │                   │
+                    │   WAN:            │
+                    │ 20.25.8.2/30      │
+                    └─────────┬─────────┘
+                              │
+                              │ 20.25.8.0/30
+                              │
+                    ┌─────────▼─────────┐
+                    │       ISP         │
+                    │                   │
+                    │  Hacia Cisco:     │
+                    │   20.25.8.1       │
+                    │                   │
+                    │  Hacia FortiGate: │
+                    │   20.25.8.5       │
+                    └─────────┬─────────┘
+                              │
+                              │ 20.25.8.4/30
+                              │
+                    ┌─────────▼─────────┐
+                    │    FORTIGATE      │
+                    │                   │
+                    │  port2 (WAN):     │
+                    │ 20.25.8.6/30      │
+                    │                   │
+                    │ port3 (LAN):      │
+                    │192.168.8.129/28   │
+                    └─────────┬─────────┘
+                              │
+                              │
+                    ┌─────────▼─────────┐
+                    │    WEB SERVER     │
+                    │ 192.168.8.130/28  │
+                    │ Gateway:          │
+                    │ 192.168.8.129     │
+                    │                   │
+                    │       HTTPS       │
+                    └───────────────────┘
+
+
+        ╔══════════════════════════════════════════╗
+        ║           TÚNEL VPN IPsec               ║
+        ║                                          ║
+        ║  CISCO-USUARIOS ◄════════════► FORTIGATE║
+        ║     20.25.8.2              20.25.8.6    ║
+        ╚══════════════════════════════════════════╝
+
+Red de usuarios: 192.168.8.0/25
+Red del servidor: 192.168.8.128/28
+
+### Descripción del diagrama
+
+La infraestructura está compuesta por una red de usuarios conectada al equipo CISCO-USUARIOS, el cual establece un túnel VPN IPsec hacia el FortiGate a través del ISP. El FortiGate conecta con el servidor web ubicado en la red `192.168.8.128/28`. La comunicación entre usuarios y servidor se realiza mediante el túnel VPN.
 
 ---
 
