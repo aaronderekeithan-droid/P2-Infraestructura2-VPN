@@ -635,22 +635,7 @@ El export contiene, entre otros elementos, las interfaces `port2 = 20.25.8.6/30`
 
 ---
 
-# 15. Archivos de comandos
 
-Archivo consolidado: [`scripts/comandos-laboratorio.txt`](scripts/comandos-laboratorio.txt)
-
-Contiene los comandos de configuración y verificación de:
-
-- FortiGate (acceso inicial por consola).
-- ISP.
-- Cisco-USUARIOS.
-- Web Server.
-- PC-Usuario.
-- Pruebas de conectividad, HTTPS y VPN.
-- Traceroute mediante TTL creciente.
-
----
-
-# 16. Conclusión
+# 14. Conclusión
 
 La Infraestructura 2 implementa una VPN Site-to-Site entre el router Cisco del lado de usuarios y el FortiGate del lado del servidor, utilizando el direccionamiento basado en la matrícula `2025-0800`. Se integran VLAN 10, DHCP, NAT, servidor web HTTPS y pruebas de operación con la VPN activa y caída.
