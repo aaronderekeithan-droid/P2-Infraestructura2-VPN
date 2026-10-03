@@ -63,7 +63,7 @@ El laboratorio demuestra:
 
 ### Diagrama
 
-INFRAESTRUCTURA 2
+
                     VPN SITE-TO-SITE IPsec
                               │
                               │
